@@ -1,0 +1,11 @@
+.right-side {
+  flex-wrap: wrap !important;
+  justify-content: space-around !important;
+}
+.every-card {
+  transition: transform ease-in-out 0.8s;
+  width: 20vw;
+}
+.every-card:hover {
+  transform: scale(0.8);
+}
