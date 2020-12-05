@@ -75,14 +75,17 @@ const HomePage = () => {
   return (
     <div className="container-1">
       <NaviBar />
+      <section className="search-section">
+        <SearchForm
+          performSearch={performSearch}
+          updateSearchTerm={updateSearchTerm}
+        />
+      </section>
 
-      <SearchForm
-        performSearch={performSearch}
-        updateSearchTerm={updateSearchTerm}
-      />
-      <MenuSide />
       <div className="row">
-        <div className="left-side col-2"></div>
+        <div className="left-side col-2">
+          <MenuSide />
+        </div>
         <div className="right-side col-10 d-flex">
           {movieList?.map((item) => (
             <Card

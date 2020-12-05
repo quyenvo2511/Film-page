@@ -8,6 +8,10 @@
   background-color: black !important;
   color: white;
 }
+.no-nav-bar {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 .right-side {
   flex-wrap: wrap !important;
   justify-content: space-around !important;
@@ -88,7 +92,7 @@ h1 {
 .mb-3 {
   background-color: coral !important;
   /* transition: background-color 200ms linear; */
-  position: fixed !important;
+
   /* z-index: 99; */
 }
 .container-1 {
@@ -154,4 +158,43 @@ h4 {
   color: #fe4536;
   font-size: 15px;
   line-height: 50px;
+}
+.breadcrumb {
+  background-color: black;
+  font-size: 20px;
+}
+
+a {
+  color: white;
+}
+a:hover {
+  color: pink;
+  text-decoration: none;
+}
+.search-section {
+  background-image: url(https://dkr0pu7ej5xex.cloudfront.net/wp-content/uploads/2017/04/24135159/Netflix-Background.jpg);
+  background-repeat: no-repeat;
+  background-size: auto;
+  padding: 300px 200px 400px 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-section:hover {
+  visibility: visible;
+  opacity: 1;
+}
+.form-control {
+  border-radius: 20px;
+  padding: 30px 0px 30px 200px;
+}
+ul {
+  list-style: none;
+  margin-top: 50px;
+}
+.badge-1 {
+  background-color: red;
+  border-radius: 40px;
+  font-size: 30px;
+  padding: 20px;
 }

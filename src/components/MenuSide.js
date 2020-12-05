@@ -4,13 +4,13 @@ import { Dropdown } from "react-bootstrap";
 const MenuSide = () => {
   return (
     <div>
-      <Dropdown.Menu show>
-        <Dropdown.Item eventKey="1">Action</Dropdown.Item>
-        <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
-        <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
-        <Dropdown.Divider />
-        <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
-      </Dropdown.Menu>
+      <ul className="menu">
+        <li className="nav-item">
+          <a className="badge-1" href="#">
+            Top rated
+          </a>
+        </li>
+      </ul>
     </div>
   );
 };
