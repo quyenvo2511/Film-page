@@ -73,7 +73,7 @@ const HomePage = () => {
   };
 
   return (
-    <>
+    <div className="container-1">
       <NaviBar />
 
       <SearchForm
@@ -102,7 +102,7 @@ const HomePage = () => {
           setPageNum={setPageNum}
         />
       </div>
-    </>
+    </div>
   );
 };
 

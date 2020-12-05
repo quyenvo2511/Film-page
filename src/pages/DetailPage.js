@@ -94,56 +94,82 @@ const DetailPage = () => {
               variant="top"
               src={`${POSTER_BASE_URL}${movieDetail.poster_path}`}
             />
-            <Button onClick={() => trailer(movieDetail.id)}>Trailer</Button>
-            {!isLoading && movieTrailer ? (
-              <iframe
-                src={`${TRAILER_BASE_URL}${movieTrailer[0].key}`}
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                title="video"
-              />
-            ) : (
-              <></>
-            )}
           </div>
           <div className="col-6 infor">
             <span className="type-film">{movieDetail.genres[0].name}</span>
-            <h1>{movieDetail.original_title}</h1>
-            <div className="control-icon d-flex">
-              <ul className="d-flex">
-                <li>
-                  <i class="fab fa-imdb imb-icon" aria-hidden="true">
-                    <span class="imb-score">{movieDetail.vote_average}</span>
-                  </i>
-                </li>
-                <i class="fas fa-users users-icon" aria-hidden="true">
-                  <span class="imb-score">{movieDetail.popularity}</span>
-                </i>
-              </ul>
+            <div className="movie-title">
+              <h1>{movieDetail.original_title}</h1>
+              <h4>{movieDetail.tagline}</h4>
             </div>
-            <p>
-              <b>Release Date: </b>
-              {movieDetail.release_date}
-            </p>
-            <p>
-              <b>Time remaining: </b>
-              {movieDetail.runtime} minutes
-            </p>
-            <p>
-              <b>Languages: </b>
-              {movieDetail.spoken_languages[0].english_name}
-            </p>
+            <div className="d-flex control">
+              <div>
+                <i class="fab fa-imdb imb-icon" aria-hidden="true">
+                  <span class="imb-score">{movieDetail.vote_average}</span>
+                </i>
+              </div>
+              <div>
+                <i class="fas fa-users users-icon" aria-hidden="true">
+                  <span class="imb-score-1">{movieDetail.popularity}</span>
+                </i>
+              </div>
+            </div>
+            <div className="text-group">
+              <p>
+                <b>Release Date: </b>
+                {movieDetail.release_date}
+              </p>
+              <p>
+                <b>Time remaining: </b>
+                {movieDetail.runtime} minutes
+              </p>
+              <p>
+                <b>Languages: </b>
+                {movieDetail.spoken_languages[0].english_name}
+              </p>
+            </div>
+            <div className="control-fav-list">
+              <Button
+                className="button-trailer"
+                onClick={() => trailer(movieDetail.id)}
+              >
+                Trailer
+              </Button>
+              {!isLoading && movieTrailer ? (
+                <iframe
+                  src={`${TRAILER_BASE_URL}${movieTrailer[0].key}`}
+                  frameBorder="0"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  title="video"
+                />
+              ) : (
+                <></>
+              )}
+              <button class="details-action-icon">
+                <i class="fas fa-heart black" aria-hidden="true"></i>
+              </button>
+            </div>
           </div>
         </div>
       </section>
       <section className="cmt">
         <div className="overview">
-          <h1>Overview: </h1>
+          <h2>Overview</h2>
           <p>{movieDetail.overview}</p>
         </div>
         <div className="comment-review">
-          <h1>REVIEW({})</h1>
+          <h2>Review ({})</h2>
+          {isLoading && movieTrailer ? (
+            <iframe
+              src={`${TRAILER_BASE_URL}${movieTrailer[0].key}`}
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              title="video"
+            />
+          ) : (
+            <></>
+          )}
         </div>
       </section>
     </div>

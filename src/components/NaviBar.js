@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 const NaviBar = () => {
   return (
     <div>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" className="mb-3">
         <Navbar.Brand>
           <img
             src="https://png2.cleanpng.com/sh/70294fe7721701c0062a12d1eb3ab969/L0KzQYm3VcI4N6NtfpH0aYP2gLBuTf5mfJdxgeo2dHXvdcfwkBlwdl5ohNt5LXH1hH7vhL1td5h0RadrMHHlQIG3UcEyO2g3RqMCMkezR4m8UcUzP2U3T6ICMkC6PsH1h5==/kisspng-netflix-television-clip-art-hd-logo-5b0ab000111372.17270785152742707207.png"
