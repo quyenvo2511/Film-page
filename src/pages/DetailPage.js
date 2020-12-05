@@ -38,6 +38,7 @@ const DetailPage = () => {
     try {
       setIsLoading(true);
       const movie = await getMovieDetailData(MOVIE_ID);
+      console.log(movie);
       setMovieDetail(movie);
       setIsLoading(false);
     } catch (error) {
@@ -54,25 +55,26 @@ const DetailPage = () => {
       const data = await res.json();
 
       console.log("WHAT IS", data);
-      setReviewList(data.results);
+      setReviewList(data);
       setIsLoading(false);
     } catch (error) {
       console.log("Not found");
     }
   };
-  useEffect(() => {
-    getReview();
-  }, []);
-  useEffect(() => {
-    getMovieDetail();
-  }, []);
 
+  useEffect(() => {
+    if (isLoading) {
+      getMovieDetail();
+    } else {
+      getReview();
+    }
+  }, []);
   return isLoading ? (
     <>
       <p>Loading</p>
     </>
   ) : (
-    <div>
+    <div className="control-detailpage">
       <div className="nav-bar-1">
         <NaviBar />
       </div>
@@ -85,61 +87,65 @@ const DetailPage = () => {
           <Breadcrumb.Item active>Data</Breadcrumb.Item>
         </Breadcrumb>
       </div>
-      <div className="Detail-film d-flex">
-        <div className="col-6 photo">
-          <Card.Img
-            variant="top"
-            src={`${POSTER_BASE_URL}${movieDetail.poster_path}`}
-          />
-          <Button onClick={() => trailer(movieDetail.id)}>Trailer</Button>
-          {!isLoading && movieTrailer ? (
-            <iframe
-              src={`${TRAILER_BASE_URL}${movieTrailer[0].key}`}
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              title="video"
+      <section className="all-in">
+        <div className="Detail-film d-flex">
+          <div className="col-6 photo">
+            <Card.Img
+              variant="top"
+              src={`${POSTER_BASE_URL}${movieDetail.poster_path}`}
             />
-          ) : (
-            <>nothing</>
-          )}
-        </div>
-        <div className="col-6 infor">
-          <span>{movieDetail.genres[0].name}</span>
-          <h1>{movieDetail.original_title}</h1>
-          <div className="control-icon d-flex">
-            <div className="imdb-control d-flex">
-              <img src="./img/imdb.png" alt="imdb logo" />
-
-              <p>{movieDetail.vote_average}</p>
-            </div>
-            <div className="eye-control d-flex">
-              <img className="people" src="../img/people.png" alt="eye icon" />{" "}
-              <p>{movieDetail.popularity}</p>
-            </div>
+            <Button onClick={() => trailer(movieDetail.id)}>Trailer</Button>
+            {!isLoading && movieTrailer ? (
+              <iframe
+                src={`${TRAILER_BASE_URL}${movieTrailer[0].key}`}
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                title="video"
+              />
+            ) : (
+              <></>
+            )}
           </div>
-
-          <p>
-            <b>Release Date: </b>
-            {movieDetail.release_date}
-          </p>
-          <p>
-            <b>Time remaining: </b>
-            {movieDetail.runtime} minutes
-          </p>
-          <p>
-            <b>Languages: </b>
-            {movieDetail.spoken_languages[0].english_name}
-          </p>
+          <div className="col-6 infor">
+            <span className="type-film">{movieDetail.genres[0].name}</span>
+            <h1>{movieDetail.original_title}</h1>
+            <div className="control-icon d-flex">
+              <ul className="d-flex">
+                <li>
+                  <i class="fab fa-imdb imb-icon" aria-hidden="true">
+                    <span class="imb-score">{movieDetail.vote_average}</span>
+                  </i>
+                </li>
+                <i class="fas fa-users users-icon" aria-hidden="true">
+                  <span class="imb-score">{movieDetail.popularity}</span>
+                </i>
+              </ul>
+            </div>
+            <p>
+              <b>Release Date: </b>
+              {movieDetail.release_date}
+            </p>
+            <p>
+              <b>Time remaining: </b>
+              {movieDetail.runtime} minutes
+            </p>
+            <p>
+              <b>Languages: </b>
+              {movieDetail.spoken_languages[0].english_name}
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="overview">
-        <h1>Overview: </h1>
-        <p>{movieDetail.overview}</p>
-      </div>
-      <div className="comment-review">
-        <h1>REVIEW({})</h1>
-      </div>
+      </section>
+      <section className="cmt">
+        <div className="overview">
+          <h1>Overview: </h1>
+          <p>{movieDetail.overview}</p>
+        </div>
+        <div className="comment-review">
+          <h1>REVIEW({})</h1>
+        </div>
+      </section>
     </div>
   );
 };

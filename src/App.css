@@ -1,3 +1,8 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
 .right-side {
   flex-wrap: wrap !important;
   justify-content: space-around !important;
@@ -5,6 +10,7 @@
 .every-card {
   transition: transform ease-in-out 0.8s;
   width: 20vw;
+  margin: 20px;
 }
 .every-card:hover {
   transform: scale(0.8);
@@ -14,7 +20,56 @@
 }
 .infor {
   background-color: rgb(250, 246, 246);
+  padding-top: 30px;
 }
-.control-icon {
-  justify-content: space-between;
+
+.all-in {
+  border: 1px solid lightgray;
+  padding: 30px 200px 20px 200px;
+}
+.type-film {
+  background-color: red;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  padding: 5px 10px;
+  margin-bottom: 200px;
+  font-size: 15px;
+}
+h1 {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 65px;
+  text-transform: uppercase;
+}
+.imb-icon,
+.users-icon {
+  font-size: 20px !important;
+}
+.imb-icon {
+  color: orange;
+}
+.fab,
+.far {
+  font-weight: 400;
+}
+.fa,
+.fab,
+.fad,
+.fal,
+.far,
+.fas {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+li {
+  list-style: none;
+}
+ul {
+  justify-content: space-between !important;
 }

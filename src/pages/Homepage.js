@@ -5,7 +5,7 @@ import MenuSide from "../components/MenuSide";
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-
+import PaginationBar from "../components/PaginationBar";
 const HomePage = () => {
   const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500/";
   const API_KEY = "8bb27996f17866f8d8aa2ee7f2bb50aa";
@@ -14,6 +14,8 @@ const HomePage = () => {
   /// capture searchConfirm
   const [searchTerm, setSearchTerm] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [pageNum, setPageNum] = useState(1);
+  const totalPage = 50;
   ///
 
   const history = useHistory();
@@ -26,7 +28,7 @@ const HomePage = () => {
   const getData = async () => {
     try {
       setIsLoading(true);
-      const API_URL = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=1`;
+      const API_URL = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${pageNum}`;
       const res = await fetch(API_URL);
       const data = await res.json();
       console.log(data);
@@ -65,9 +67,6 @@ const HomePage = () => {
       getData();
     }
   }, [confirm]);
-  // useEffect(() => {
-  //   if (confirm) performSearch();
-  // }, [confirm]);
 
   const handleCardClick = (movieId) => {
     history.push(`/movies/${movieId}`);
@@ -94,14 +93,14 @@ const HomePage = () => {
                 variant="top"
                 src={`${POSTER_BASE_URL}${item.poster_path}`}
               />
-              <Card.Body>
-                <Card.Title>{item.title}</Card.Title>
-                {/* <Card.Text>{item.overview}</Card.Text> */}
-              </Card.Body>
-              <Card.Footer></Card.Footer>
             </Card>
           ))}
         </div>
+        <PaginationBar
+          pageNum={pageNum}
+          totalPageNum={totalPage}
+          setPageNum={setPageNum}
+        />
       </div>
     </>
   );
