@@ -10,8 +10,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/books/:id" component={DetailPage} />
-        <Route exact path="/reading" component={FavoList} />
+        <Route exact path="/movies/:id" component={DetailPage} />
+        <Route exact path="/fav-movie" component={FavoList} />
         <Route exact path="/" component={Homepage} />
       </Switch>
     </Router>

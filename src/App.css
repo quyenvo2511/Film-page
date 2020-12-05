@@ -9,3 +9,12 @@
 .every-card:hover {
   transform: scale(0.8);
 }
+.photo {
+  background-color: white;
+}
+.infor {
+  background-color: rgb(250, 246, 246);
+}
+.control-icon {
+  justify-content: space-between;
+}
