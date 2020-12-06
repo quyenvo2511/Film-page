@@ -98,19 +98,20 @@ const DetailPage = () => {
               <div className="movie-title">
                 <h1>{movieDetail.original_title}</h1>
                 <h4>{movieDetail.tagline}</h4>
-              </div>
-              <div className="d-flex control">
-                <div>
-                  <i class="fab fa-imdb imb-icon" aria-hidden="true">
-                    <span class="imb-score">{movieDetail.vote_average}</span>
-                  </i>
+                <div className="d-flex control">
+                  <div>
+                    <i class="fab fa-imdb imb-icon" aria-hidden="true">
+                      <span class="imb-score">{movieDetail.vote_average}</span>
+                    </i>
+                  </div>
+                  <div>
+                    <i class="fas fa-users users-icon" aria-hidden="true">
+                      <span class="imb-score-1">{movieDetail.popularity}</span>
+                    </i>
+                  </div>
                 </div>
-                <div>
-                  <i class="fas fa-users users-icon" aria-hidden="true">
-                    <span class="imb-score-1">{movieDetail.popularity}</span>
-                  </i>
-                </div>
               </div>
+
               <div className="text-group">
                 <p>
                   <b>Release Date: </b>

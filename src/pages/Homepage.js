@@ -74,8 +74,8 @@ const HomePage = () => {
 
   return (
     <div className="container-1">
-      <NaviBar />
       <section className="search-section">
+        <NaviBar />
         <SearchForm
           performSearch={performSearch}
           updateSearchTerm={updateSearchTerm}
