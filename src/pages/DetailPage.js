@@ -15,7 +15,7 @@ const DetailPage = () => {
   const [movieDetail, setMovieDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [reviewList, setReviewList] = useState([]);
-
+  const [isClick, setIsClick] = useState(false);
   const [showTrailer, setShowTrailer] = useState(false);
 
   const params = useParams();
@@ -65,8 +65,6 @@ const DetailPage = () => {
       console.log("movies trailer", data.results[0].key);
       //
       setMovieTrailer(data.results);
-      //
-      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
     }
@@ -75,6 +73,7 @@ const DetailPage = () => {
   useEffect(() => {
     if (isLoading) {
       getMovieDetail();
+      if (isClick) setIsClick(true);
       getTrailer();
     } else {
       getReview();

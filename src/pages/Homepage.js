@@ -7,11 +7,11 @@ import { Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
 
-import {
-  sortMoviesByAtoZ,
-  sortMoviesByZtoA,
-  sortMoviesByPopularity,
-} from "../Sorting";
+// import {
+//   sortMoviesByAtoZ,
+//   sortMoviesByZtoA,
+//   sortMoviesByPopularity,
+// } from "../Sorting";
 
 const HomePage = () => {
   const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500/";
@@ -22,8 +22,6 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [confirm, setConfirm] = useState("");
   const [pageNum, setPageNum] = useState(1);
-  const [yearRange, setYearRange] = useState({ min: 1990, max: 2020 });
-  const [ratingRange, setRatingRange] = useState({ min: 0, max: 10 });
   const totalPage = 50;
   ///
 
@@ -68,19 +66,6 @@ const HomePage = () => {
     }
   };
 
-  const sortAscending = () => {
-    const newList = sortMoviesByAtoZ(movieList);
-    setMovieList(newList);
-  };
-
-  const sortDescending = () => {
-    setMovieList(sortMoviesByZtoA(movieList));
-  };
-
-  const sortByPopularity = () => {
-    setMovieList(sortMoviesByPopularity(movieList));
-  };
-
   useEffect(() => {
     getData();
   }, [pageNum]);
@@ -110,44 +95,23 @@ const HomePage = () => {
 
       <div className="row">
         <div className="left-side col-2">
-          <MenuSide
-            sortAsc={sortAscending}
-            sortDesc={sortDescending}
-            sortPopular={sortByPopularity}
-            yearRange={yearRange}
-            setYearRange={setYearRange}
-            ratingRange={ratingRange}
-            setRatingRange={setRatingRange}
-          />
+          <MenuSide movieList={movieList} setMovieList={movieList} />
         </div>
         <div className="right-side col-10 d-flex">
           {isLoading ? (
             <p>Loading</p>
           ) : (
-            movieList
-              ?.filter((item) => {
-                const releaseDate = new Date(item.release_date);
-                const year = releaseDate.getFullYear();
-                const rating = item.vote_average;
-
-                return (
-                  year <= yearRange.max &&
-                  year >= yearRange.min &&
-                  rating >= ratingRange.min &&
-                  rating <= ratingRange.max
-                );
-              })
-              .map((item) => (
-                <Card
-                  className="every-card"
-                  onClick={() => handleCardClick(item.id)}
-                >
-                  <Card.Img
-                    variant="top"
-                    src={`${POSTER_BASE_URL}${item.poster_path}`}
-                  />
-                </Card>
-              ))
+            movieList?.map((item) => (
+              <Card
+                className="every-card"
+                onClick={() => handleCardClick(item.id)}
+              >
+                <Card.Img
+                  variant="top"
+                  src={`${POSTER_BASE_URL}${item.poster_path}`}
+                />
+              </Card>
+            ))
           )}
         </div>
         <div className="pagination">

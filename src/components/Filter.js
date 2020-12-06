@@ -1,22 +1,49 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
-import InputRange from "react-input-range";
 
-const MIN_YEAR = 1990;
-const MAX_YEAR = 2020;
+const Filter = ({ movieList, setMovieList }) => {
+  const compareMovieAsc = (a, b) => {
+    if (a.title < b.title) return -1;
+    if (a.title > b.title) return 1;
+    return 0;
+  };
 
-const MIN_RATING = 0;
-const MAX_RATING = 10;
+  const compareMovieDesc = (a, b) => {
+    if (a.title < b.title) return 1;
+    if (a.title > b.title) return -1;
+    return 0;
+  };
 
-const Filter = ({
-  sortAsc,
-  sortDesc,
-  sortPopular,
-  yearRange,
-  setYearRange,
-  ratingRange,
-  setRatingRange,
-}) => {
+  const compareMovieByPopularity = (a, b) => {
+    if (a.popularity < b.popularity) return -1;
+    if (a.popularity > b.popularity) return 1;
+    return 0;
+  };
+
+  const sortMoviesByAtoZ = (movies) => {
+    return [...movies.sort(compareMovieAsc)];
+  };
+
+  const sortMoviesByZtoA = (movies) => {
+    return [...movies.sort(compareMovieDesc)];
+  };
+
+  const sortMoviesByPopularity = (movies) => {
+    return [...movies.sort(compareMovieByPopularity)];
+  };
+  const sortAscending = () => {
+    const newList = sortMoviesByAtoZ(movieList);
+    setMovieList(newList);
+  };
+
+  const sortDescending = () => {
+    setMovieList(sortMoviesByZtoA(movieList));
+  };
+
+  const sortByPopularity = () => {
+    setMovieList(sortMoviesByPopularity(movieList));
+  };
+
   return (
     <>
       <Dropdown>
@@ -27,43 +54,27 @@ const Filter = ({
         <Dropdown.Menu>
           <Dropdown.Item
             onClick={() => {
-              sortAsc();
+              sortAscending();
             }}
           >
             Name A-Z
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
-              sortDesc();
+              sortDescending();
             }}
           >
             Name Z-A
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
-              sortPopular();
+              sortByPopularity();
             }}
           >
             Top Rated
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-      <div className="range-filter">
-        <InputRange
-          minValue={MIN_YEAR}
-          maxValue={MAX_YEAR}
-          value={yearRange}
-          onChange={(value) => setYearRange(value)}
-        />
-      </div>
-      <div className="range-filter">
-        <InputRange
-          minValue={MIN_RATING}
-          maxValue={MAX_RATING}
-          value={ratingRange}
-          onChange={(value) => setRatingRange(value)}
-        />
-      </div>
     </>
   );
 };

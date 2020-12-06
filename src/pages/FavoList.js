@@ -29,12 +29,6 @@ const FavoList = () => {
   useEffect(() => {
     loadingFav();
   }, []);
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     getFavMovies();
-  //     // setMovieList(favMovies);
-  //   }
-  // }, []);
 
   return (
     <div>
@@ -46,15 +40,21 @@ const FavoList = () => {
         {isLoading && movieList ? (
           <p>Loading</p>
         ) : (
-          <div>
+          <div className="d-flex control-card-favo-list">
             {movieList.map((movie) => (
-              <div key={movie.id}>
-                <Card.Img
-                  variant="top"
-                  src={`${POSTER_BASE_URL}${movie.poster_path}`}
-                />
-                <h3>{movie.original_title}</h3>
-                <p>{movie.overview}</p>
+              <div key={movie.id} className="d-flex">
+                <div className="wrap-card">
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src={`${POSTER_BASE_URL}${movie.poster_path}`}
+                    />
+                    <Card.Body>
+                      <Card.Title>{movie.original_title}</Card.Title>
+                      <Card.Text>{movie.overview}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
               </div>
             ))}
           </div>
