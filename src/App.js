@@ -3,7 +3,7 @@ import "./App.css";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Homepage from "./pages/Homepage";
-import FavoList from "./pages/FavoList";
+import {FavoList} from "./pages/FavoList";
 import DetailPage from "./pages/DetailPage";
 
 function App() {

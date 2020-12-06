@@ -1,11 +1,13 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 
-const MenuSide = () => {
+import Filter from "./Filter";
+
+const MenuSide = ({ sortAsc, sortDesc, sortPopular, yearRange, setYearRange, ratingRange, setRatingRange  }) => {
   return (
     <div className="menuside-control d-flex">
       <ul className="menu">
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a className="badge-1" href="#">
             Top rated
           </a>
@@ -14,7 +16,8 @@ const MenuSide = () => {
           <a className="badge-2" href="#">
             Trending now
           </a>
-        </li>
+        </li> */}
+        <Filter  sortAsc={sortAsc} sortDesc={sortDesc} sortPopular={sortPopular} yearRange={yearRange} setYearRange={setYearRange} ratingRange={ratingRange} setRatingRange={setRatingRange} />
       </ul>
     </div>
   );

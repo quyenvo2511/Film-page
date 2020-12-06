@@ -17,7 +17,7 @@ const NaviBar = () => {
           <Nav.Link as={NavLink} to="/">
             Home
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/reading">
+          <Nav.Link as={NavLink} to="/fav-movie">
             My List
           </Nav.Link>
         </Nav>

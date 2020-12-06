@@ -6,6 +6,9 @@ import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
+
+import { sortMoviesByAtoZ, sortMoviesByZtoA, sortMoviesByPopularity} from "../Sorting";
+
 const HomePage = () => {
   const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500/";
   const API_KEY = "8bb27996f17866f8d8aa2ee7f2bb50aa";
@@ -15,6 +18,8 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [confirm, setConfirm] = useState("");
   const [pageNum, setPageNum] = useState(1);
+  const [yearRange, setYearRange] = useState({ min: 1990, max: 2020 });
+  const [ratingRange, setRatingRange] = useState({ min: 0, max: 10 });
   const totalPage = 50;
   ///
 
@@ -59,6 +64,23 @@ const HomePage = () => {
     }
   };
 
+  const sortAscending = () => {
+    const newList = sortMoviesByAtoZ(movieList);
+    setMovieList(newList);
+  }
+
+  const sortDescending = () => {
+    setMovieList(sortMoviesByZtoA(movieList));
+  }
+
+  const sortByPopularity = () => {
+    setMovieList(sortMoviesByPopularity(movieList));
+  }
+
+  useEffect(() => {
+    getData();
+  }, [pageNum])
+
   useEffect(() => {
     getData();
     if (confirm) {
@@ -84,10 +106,16 @@ const HomePage = () => {
 
       <div className="row">
         <div className="left-side col-2">
-          <MenuSide />
+          <MenuSide sortAsc={sortAscending} sortDesc={sortDescending} sortPopular={sortByPopularity} yearRange={yearRange} setYearRange={setYearRange} ratingRange={ratingRange} setRatingRange={setRatingRange} />
         </div>
         <div className="right-side col-10 d-flex">
-          {movieList?.map((item) => (
+          {isLoading ? <p>Loading</p> : movieList?.filter(item => {
+            const releaseDate = new Date(item.release_date);
+            const year = releaseDate.getFullYear();
+            const rating = item.vote_average;
+
+            return year <= yearRange.max && year >= yearRange.min && rating >= ratingRange.min && rating <= ratingRange.max;
+          }).map((item) => (
             <Card
               className="every-card"
               onClick={() => handleCardClick(item.id)}

@@ -6,14 +6,14 @@ const PaginationBar = ({ pageNum, setPageNum, totalPageNum }) => {
     setPageNum(1);
   };
   const handleClickOnPrev = () => {
-    if (pageNum > 1) setPageNum((num) => num - 1);
+    if (pageNum > 1) setPageNum(pageNum - 1);
   };
 
   const handleClickOnLast = () => {
     setPageNum(totalPageNum);
   };
   const handleClickOnNext = () => {
-    if (pageNum < totalPageNum) setPageNum((num) => num + 1);
+    if (pageNum < totalPageNum) setPageNum(pageNum + 1);
   };
 
   const handleClickOnPage = (page) => {

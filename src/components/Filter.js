@@ -1,27 +1,70 @@
 import React from "react";
+import { Dropdown } from "react-bootstrap";
+import InputRange from "react-input-range";
 
-const Filter = () => {
+const MIN_YEAR = 1990;
+const MAX_YEAR = 2020;
+
+const MIN_RATING = 0;
+const MAX_RATING = 10;
+
+const Filter = ({
+  sortAsc,
+  sortDesc,
+  sortPopular,
+  yearRange,
+  setYearRange,
+  ratingRange,
+  setRatingRange,
+}) => {
   return (
-    <div>
-      <div className="sort-control">
-        <span>
-          <i class="fas fa-arrow-right" aria-hidden="true"></i>
-        </span>
+    <>
+      <Dropdown>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          Sort By
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item
+            onClick={() => {
+              sortAsc();
+            }}
+          >
+            Name A-Z
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              sortDesc();
+            }}
+          >
+            Name Z-A
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              sortPopular();
+            }}
+          >
+            Top Rated
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <div className="range-filter">
+        <InputRange
+          minValue={MIN_YEAR}
+          maxValue={MAX_YEAR}
+          value={yearRange}
+          onChange={(value) => setYearRange(value)}
+        />
       </div>
-      <div className="sort">
-        <div className="sort-dropdown">
-          <h4>Sort Results By</h4>
-        </div>
+      <div className="range-filter">
+        <InputRange
+          minValue={MIN_RATING}
+          maxValue={MAX_RATING}
+          value={ratingRange}
+          onChange={(value) => setRatingRange(value)}
+        />
       </div>
-      <div class="filter-section closed">
-        <div>
-          <h2>Filter</h2>
-          <span>
-            <i class="fas fa-arrow-right" aria-hidden="true"></i>
-          </span>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
