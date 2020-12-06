@@ -22,29 +22,11 @@ const DetailPage = () => {
   const MOVIE_ID = params.id;
   const handleCloseTrailer = () => {
     setShowTrailer(false);
-  }
+  };
 
   const handleOpenTrailer = () => {
-    // trailer(movieDetail.id);
     setShowTrailer(true);
-  }
-
-  // const trailer = async (movie_id) => {
-  //   // console.log("here", movie_id);
-  //   try {
-  //     setIsLoading(true);
-  //     const API_URL = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${API_KEY}&language=en-US`;
-  //     const res = await fetch(API_URL);
-  //     const data = await res.json();
-  //     console.log("movies trailer", data.results[0].key);
-  //     //
-  //     setMovieTrailer(data.results);
-  //     //
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //   }
-  // };
+  };
 
   const getMovieDetail = async () => {
     try {
@@ -88,13 +70,14 @@ const DetailPage = () => {
     } catch (error) {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (isLoading) {
       getMovieDetail();
-      getReview();
       getTrailer();
+    } else {
+      getReview();
     }
   }, []);
 
@@ -108,7 +91,7 @@ const DetailPage = () => {
         <div className="nav-bar-1">
           <NaviBar />
         </div>
-        <div class="link">
+        <div className="link">
           <Breadcrumb>
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             <Breadcrumb.Item href="#">
@@ -157,17 +140,23 @@ const DetailPage = () => {
                 </p>
               </div>
               <div className="control-fav-list">
-                <Button
-                  className="button-trailer"
-                  onClick={handleOpenTrailer}
-                >
+                <Button className="button-trailer" onClick={handleOpenTrailer}>
                   Trailer
                 </Button>
-                <button class="details-action-icon" onClick={() => {
-                  sessionStorage.setItem(MOVIE_ID, MOVIE_ID);
-                  console.log(Object.keys(sessionStorage));
-                }}>
-                  <i class="fas fa-heart black" aria-hidden="true"></i>
+                <button
+                  class="details-action-icon"
+                  onClick={() => {
+                    const movieAdded = sessionStorage.getItem(MOVIE_ID);
+                    if (movieAdded !== null) {
+                      window.alert("The movie is already added to My List");
+                    } else {
+                      sessionStorage.setItem(MOVIE_ID, MOVIE_ID);
+                      console.log(Object.keys(sessionStorage));
+                      window.alert("added");
+                    }
+                  }}
+                >
+                  <i className="fas fa-heart black" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
@@ -180,37 +169,39 @@ const DetailPage = () => {
           </div>
           <div className="comment-review">
             <h2>Review ({reviewList.length})</h2>
-            {reviewList.map(review => 
+            {reviewList.map((review) => (
               <div>
-                  <h2>{review.author_details.username}</h2>
-                  <p>{review.content}</p>
+                <h2>{review.author_details.username}</h2>
+                <p>{review.content}</p>
               </div>
-            )}
+            ))}
           </div>
         </section>
       </div>
-      <Modal show={showTrailer} onHide={handleCloseTrailer}>
-          <Modal.Header closeButton>
-            <Modal.Title>{movieDetail.original_title}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {movieTrailer ? (
-                  <iframe
-                    src={`${TRAILER_BASE_URL}${movieTrailer[0].key}`}
-                    frameBorder="0"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                    title="video"
-                  />
-                ) : (
-                  <p>No Trailer Found For This Movie</p>
-              )}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseTrailer}>
-              Close
-            </Button>
-          </Modal.Footer>
+      <Modal show={showTrailer} size="xl" onHide={handleCloseTrailer}>
+        <Modal.Header closeButton>
+          <Modal.Title>{movieDetail.original_title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {movieTrailer ? (
+            <iframe
+              src={`${TRAILER_BASE_URL}${movieTrailer[0].key}`}
+              width="100%"
+              height="900"
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              title="video"
+            />
+          ) : (
+            <p>No Trailer Found For This Movie</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseTrailer}>
+            Close
+          </Button>
+        </Modal.Footer>
       </Modal>
     </>
   );

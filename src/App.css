@@ -106,6 +106,7 @@ h1 {
 }
 .container-1 {
   position: relative;
+  background-color: black;
 }
 .imb-score {
   padding-left: 10px;
@@ -262,4 +263,22 @@ ul {
   display: flex;
   flex-direction: column;
   background: black;
+}
+.link {
+  padding-top: 150px;
+}
+.card-img {
+  border: none !important;
+}
+.pagination {
+  display: flex;
+  width: 100vw;
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+.drop-down {
+  padding-bottom: 100px;
+}
+.control-fav {
+  padding-top: 150px;
 }
