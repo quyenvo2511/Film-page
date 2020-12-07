@@ -7,10 +7,6 @@ import { Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
 
-// import {
-//   sortMoviesByAtoZ,
-//   sortMoviesByZtoA,
-//   sortMoviesByPopularity,
 // } from "../Sorting";
 
 const HomePage = () => {

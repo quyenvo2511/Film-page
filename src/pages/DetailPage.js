@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import NaviBar from "../components/NaviBar";
 import { Card, Breadcrumb, Button, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AlertMsg from "../components/AlertMsg";
+import { toast } from "react-toastify";
 
 import { getMovieDetailData } from "../DataFetcher";
 
@@ -145,13 +147,14 @@ const DetailPage = () => {
                   onClick={() => {
                     const movieAdded = sessionStorage.getItem(MOVIE_ID);
                     if (movieAdded !== null) {
-                      window.alert("The movie is already added to My List");
+                      toast.info("The movie is already added to My List");
                     } else {
                       sessionStorage.setItem(MOVIE_ID, MOVIE_ID);
-                      window.alert("added");
+                      toast.success("added");
                     }
                   }}
                 >
+                  <AlertMsg />
                   <i className="fas fa-heart black" aria-hidden="true"></i>
                 </button>
               </div>
