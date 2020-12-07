@@ -281,6 +281,9 @@ ul {
 }
 .control-fav {
   padding-top: 150px;
+  background-color: black;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 .wrap-card {
   width: 30vw;
@@ -293,4 +296,7 @@ ul {
 .btn-primary {
   padding: 10px 20px 10px;
   font-size: 25px;
+}
+.navbar {
+  padding: 0px !important;
 }
