@@ -2,11 +2,11 @@ import React from "react";
 
 import Filter from "./Filter";
 
-const MenuSide = () => {
+const MenuSide = ({ movieList, setMovieList }) => {
   return (
     <div className="menuside-control d-flex">
       <ul className="menu">
-        <Filter />
+        <Filter movieList={movieList} setMovieList={setMovieList} />
       </ul>
     </div>
   );

@@ -95,7 +95,7 @@ const HomePage = () => {
 
       <div className="row">
         <div className="left-side col-2">
-          <MenuSide movieList={movieList} setMovieList={movieList} />
+          <MenuSide movieList={movieList} setMovieList={setMovieList} />
         </div>
         <div className="right-side col-10 d-flex">
           {isLoading ? (
