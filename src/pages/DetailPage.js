@@ -15,7 +15,6 @@ const DetailPage = () => {
   const [movieDetail, setMovieDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [reviewList, setReviewList] = useState([]);
-  const [isClick, setIsClick] = useState(false);
   const [showTrailer, setShowTrailer] = useState(false);
 
   const params = useParams();
@@ -73,7 +72,6 @@ const DetailPage = () => {
   useEffect(() => {
     if (isLoading) {
       getMovieDetail();
-      if (isClick) setIsClick(true);
       getTrailer();
     } else {
       getReview();
@@ -150,7 +148,6 @@ const DetailPage = () => {
                       window.alert("The movie is already added to My List");
                     } else {
                       sessionStorage.setItem(MOVIE_ID, MOVIE_ID);
-                      console.log(Object.keys(sessionStorage));
                       window.alert("added");
                     }
                   }}
