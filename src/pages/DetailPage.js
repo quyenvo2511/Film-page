@@ -6,13 +6,13 @@ import { Card, Breadcrumb, Button, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AlertMsg from "../components/AlertMsg";
 import { toast } from "react-toastify";
+import api from "../apiService";
 
 import { getMovieDetailData } from "../DataFetcher";
 
+const posterUrl = process.env.REACT_APP_POSTER_BASE_URL;
+const TRAILER_BASE_URL = "https://www.youtube.com/embed/";
 const DetailPage = () => {
-  const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500/";
-  const TRAILER_BASE_URL = "https://www.youtube.com/embed/";
-  const API_KEY = "8bb27996f17866f8d8aa2ee7f2bb50aa";
   const [movieTrailer, setMovieTrailer] = useState(null);
   const [movieDetail, setMovieDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +34,7 @@ const DetailPage = () => {
       setIsLoading(true);
       const movie = await getMovieDetailData(MOVIE_ID);
       console.log(movie);
-      setMovieDetail(movie);
+      setMovieDetail(movie.data);
       setIsLoading(false);
     } catch (error) {
       window.alert("not found");
@@ -45,12 +45,11 @@ const DetailPage = () => {
     try {
       setIsLoading(true);
 
-      const API_URL = `https://api.themoviedb.org/3/movie/${MOVIE_ID}/reviews?api_key=${API_KEY}&language=en-US&page=1`;
-      const res = await fetch(API_URL);
-      const data = await res.json();
+      const API_URL = `movie/${MOVIE_ID}/reviews?language=en-US&page=1`;
+      const data = await api.get(API_URL);
 
       console.log("WHAT IS", data);
-      setReviewList(data.results);
+      setReviewList(data.data.results);
       setIsLoading(false);
     } catch (error) {
       console.log("Not found");
@@ -60,12 +59,11 @@ const DetailPage = () => {
   const getTrailer = async () => {
     try {
       setIsLoading(true);
-      const API_URL = `https://api.themoviedb.org/3/movie/${MOVIE_ID}/videos?api_key=${API_KEY}&language=en-US`;
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      console.log("movies trailer", data.results[0].key);
+      const API_URL = `movie/${MOVIE_ID}/videos?language=en-US`;
+      const res = await api.get(API_URL);
+      console.log("movies trailer", res.data.results[0].key);
       //
-      setMovieTrailer(data.results);
+      setMovieTrailer(res.data.results);
     } catch (error) {
       setIsLoading(false);
     }
@@ -103,7 +101,7 @@ const DetailPage = () => {
             <div className="col-6 photo">
               <Card.Img
                 variant="top"
-                src={`${POSTER_BASE_URL}${movieDetail.poster_path}`}
+                src={`${posterUrl}${movieDetail.poster_path}`}
               />
             </div>
             <div className="col-6 infor">

@@ -6,12 +6,14 @@ import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
+import api from "../apiService";
 
 // } from "../Sorting";
 
+const POSTER_BASE_URL = process.env.REACT_APP_POSTER_BASE_URL;
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 const HomePage = () => {
-  const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500/";
-  const API_KEY = "8bb27996f17866f8d8aa2ee7f2bb50aa";
   const [movieList, setMovieList] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   /// capture searchConfirm
@@ -28,52 +30,29 @@ const HomePage = () => {
     console.log(searchTerm);
   };
 
-  const getData = async () => {
-    try {
-      setIsLoading(true);
-      const API_URL = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${pageNum}`;
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      console.log(data);
-      setMovieList(data.results);
-      setIsLoading(false);
-    } catch (error) {
-      window.alert("Not found");
-    }
-  };
   const performSearch = async (e) => {
     e.preventDefault();
     setConfirm(searchTerm);
   };
 
-  const getSearch = async () => {
-    try {
-      setIsLoading(true);
-      console.log("got in ", searchTerm);
-      const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${searchTerm}`;
-      const res = await fetch(API_URL);
-      const data = await res.json();
-
-      console.log("hahaha", data);
-      setMovieList(data.results);
-      setIsLoading(false);
-    } catch (error) {
-      console.log("Not found");
-    }
-  };
-
   useEffect(() => {
+    const getData = async () => {
+      try {
+        setIsLoading(true);
+        let url = `movie/now_playing?page=${pageNum}`;
+        if (confirm) {
+          url = `search/movie?language=en-US&page=1&query=${confirm}`;
+        }
+        const data = await api.get(url);
+        console.log(data);
+        setMovieList(data.data.results);
+        setIsLoading(false);
+      } catch (error) {
+        window.alert("Not found");
+      }
+    };
     getData();
-  }, [pageNum]);
-
-  useEffect(() => {
-    getData();
-    if (confirm) {
-      getSearch();
-    } else {
-      getData();
-    }
-  }, [confirm]);
+  }, [pageNum, confirm]);
 
   const handleCardClick = (movieId) => {
     history.push(`/movies/${movieId}`);

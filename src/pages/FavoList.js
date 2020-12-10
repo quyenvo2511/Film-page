@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import NaviBar from "../components/NaviBar";
 import { getMovieDetailData } from "../DataFetcher";
 import { Card } from "react-bootstrap";
-
 const FavoList = () => {
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500/";
+  const posterUrl = process.env.REACT_APP_POSTER_BASE_URL;
   const getFavMovies = async () => {
     const movieIds = Object.keys(sessionStorage);
     const movies = await Promise.all(
@@ -47,7 +46,7 @@ const FavoList = () => {
                   <Card>
                     <Card.Img
                       variant="top"
-                      src={`${POSTER_BASE_URL}${movie.poster_path}`}
+                      src={`${posterUrl}${movie.poster_path}`}
                     />
                     <Card.Body>
                       <Card.Title>{movie.original_title}</Card.Title>
