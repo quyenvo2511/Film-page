@@ -33,7 +33,7 @@ const DetailPage = () => {
     try {
       setIsLoading(true);
       const movie = await getMovieDetailData(MOVIE_ID);
-      console.log(movie);
+
       setMovieDetail(movie.data);
       setIsLoading(false);
     } catch (error) {
@@ -47,8 +47,6 @@ const DetailPage = () => {
 
       const API_URL = `movie/${MOVIE_ID}/reviews?language=en-US&page=1`;
       const data = await api.get(API_URL);
-
-      console.log("WHAT IS", data);
       setReviewList(data.data.results);
       setIsLoading(false);
     } catch (error) {

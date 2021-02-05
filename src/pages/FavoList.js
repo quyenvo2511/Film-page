@@ -8,14 +8,17 @@ const FavoList = () => {
   const posterUrl = process.env.REACT_APP_POSTER_BASE_URL;
   const getFavMovies = async () => {
     const movieIds = Object.keys(sessionStorage);
+    console.log("check movieid", movieIds);
     const movies = await Promise.all(
-      movieIds.map(async (id) => {
-        const movie = await getMovieDetailData(id);
-        console.log(movie);
-        return movie;
-      })
+      movieIds
+        .filter((id) => id !== "ACCESS_TOKEN")
+        .map(async (id) => {
+          const movie = await getMovieDetailData(id);
+          console.log(movie);
+          return movie;
+        })
     );
-
+    console.log("chck movies", movies);
     return movies;
   };
 
@@ -39,18 +42,18 @@ const FavoList = () => {
         {isLoading && movieList ? (
           <p>Loading</p>
         ) : (
-          <div className="d-flex control-card-favo-list">
+          <div className="d-flex flex-wrap control-card-favo-list">
             {movieList.map((movie) => (
               <div key={movie.id} className="d-flex">
                 <div className="wrap-card">
                   <Card>
                     <Card.Img
                       variant="top"
-                      src={`${posterUrl}${movie.poster_path}`}
+                      src={`${posterUrl}${movie.data.poster_path}`}
                     />
                     <Card.Body>
-                      <Card.Title>{movie.original_title}</Card.Title>
-                      <Card.Text>{movie.overview}</Card.Text>
+                      <Card.Title>{movie.data.original_title}</Card.Title>
+                      <Card.Text>{movie.data.overview}</Card.Text>
                     </Card.Body>
                   </Card>
                 </div>
